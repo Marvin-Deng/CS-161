@@ -51,14 +51,34 @@ def ANON(TREE):
     3. Recursively changes the values of the tuples to "?"
 
     Args:
-    - TREE (tuple): A tuple representing the tree
+    - TREE (tuple): A tuple representing a tree
 
     Returns:
-    - tuple: The tuple representin TREE with its values anonymized to "?"
-
+    - tuple: The tuple equal to TREE with its values anonymized to "?"
     """
+
     if not isinstance(TREE, tuple):
         return "?"
 
     return tuple(ANON(subtree) for subtree in TREE)
     
+
+def TREE_HEIGHT(TREE):
+    """
+    4. Calculates the height of TREE, or the longest path from the root node to the farthest leaf node
+
+    Args:
+    - TREE (tuple): A tuple representing a tree
+
+    Returns:
+    - int: Longest path from the root to a leaf of TREE
+    """
+
+    if not isinstance(TREE, tuple) or not TREE:
+        return 0
+
+    return 1 + max(TREE_HEIGHT(subtree) for subtree in TREE)
+
+
+
+

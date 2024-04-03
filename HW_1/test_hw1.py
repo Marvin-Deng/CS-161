@@ -3,6 +3,7 @@ from hw1 import (
     PAD,
     SUMS,
     ANON,
+    TREE_HEIGHT,
 )
 
 class TestPadovanSequence(unittest.TestCase):
@@ -94,6 +95,20 @@ class TestAnonFunction(unittest.TestCase):
         self.assertEqual(ANON((1, ("FOO", 3.1), -0.2)), ('?', ('?', '?'), '?'))
         self.assertEqual(ANON((((1, 2), ("FOO", 3.1)), ("BAR", -0.2))), ((('?', '?'), ('?', '?')), ('?', '?')))
         self.assertEqual(ANON(("R", ("I", ("G", ("H", "T"))))), ('?', ('?', ('?', ('?', '?')))))
+
+
+class TestTreeHeight(unittest.TestCase):
+    def test_height_of_single_node(self):
+        self.assertEqual(TREE_HEIGHT(1), 0)
+
+    def test_height_of_flat_tree(self):
+        self.assertEqual(TREE_HEIGHT((5, "FOO", 3.1, -0.2)), 1)
+
+    def test_height_with_one_subtree(self):
+        self.assertEqual(TREE_HEIGHT((1, ("FOO", 3.1), -0.2)), 2)
+
+    def test_height_of_nested_tree(self):
+        self.assertEqual(TREE_HEIGHT(("R", ("I", ("G", ("H", "T"))))), 4)
 
 
 if __name__ == '__main__':
