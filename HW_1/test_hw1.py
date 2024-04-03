@@ -4,6 +4,7 @@ from hw1 import (
     SUMS,
     ANON,
     TREE_HEIGHT,
+    TREE_ORDER,
 )
 
 class TestPadovanSequence(unittest.TestCase):
@@ -109,6 +110,17 @@ class TestTreeHeight(unittest.TestCase):
 
     def test_height_of_nested_tree(self):
         self.assertEqual(TREE_HEIGHT(("R", ("I", ("G", ("H", "T"))))), 4)
+
+
+class TestTreeOrder(unittest.TestCase):
+    def test_tree_order_single_node(self):
+        self.assertEqual(TREE_ORDER(42), (42,))
+
+    def test_tree_order_simple_tree(self):
+        self.assertEqual(TREE_ORDER(((1, 2, 3), 7, 8)), (1, 3, 2, 8, 7))
+
+    def test_tree_order_complex_tree(self):
+        self.assertEqual(TREE_ORDER(((3, 7, 10), 15, ((16, 18, 20), 30, 100))), (3, 10, 7, 16, 20, 18, 100, 30, 15))
 
 
 if __name__ == '__main__':

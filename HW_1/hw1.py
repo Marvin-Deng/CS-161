@@ -80,5 +80,30 @@ def TREE_HEIGHT(TREE):
     return 1 + max(TREE_HEIGHT(subtree) for subtree in TREE)
 
 
+def TREE_ORDER(TREE):
+    """
+    5. Returns a postorder traversal of the numbers in TREE
 
+    Args:
+    - TREE (tuple): A tuple representing an ordered tree in the form (L, m, R) where 
+        - L and R are ordered trees
+        - m is a number
+        - all numbers appearing in L are smaller than m
+        - all numbers appearing in R are larger than m
+
+    Returns:
+    - tuple: A tuple of the postorder traversal of the numbers in TREE
+    """
+
+    if TREE is None:
+        return ()
+
+    if not isinstance(TREE, tuple):
+        return (TREE,)
+
+    left_subtree = TREE_ORDER(TREE[0]) if TREE[0] is not None else ()
+    right_subtree = TREE_ORDER(TREE[2]) if TREE[2] is not None else ()
+    root = (TREE[1],)
+
+    return left_subtree + right_subtree + root
 
