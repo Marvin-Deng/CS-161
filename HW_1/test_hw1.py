@@ -2,6 +2,7 @@ import unittest
 from hw1 import (
     PAD,
     SUMS,
+    ANON,
 )
 
 class TestPadovanSequence(unittest.TestCase):
@@ -41,6 +42,7 @@ class TestPadovanSequence(unittest.TestCase):
     def test_PAD_20_returns_200(self):
         self.assertEqual(PAD(20), 200)
 
+
 class TestSumsFunction(unittest.TestCase):
     def test_sums_for_PAD_0(self):
         self.assertEqual(SUMS(0), 0)
@@ -77,6 +79,22 @@ class TestSumsFunction(unittest.TestCase):
 
     def test_sums_for_PAD_20(self):
         self.assertEqual(SUMS(20), 199)
+
+
+class TestAnonFunction(unittest.TestCase):
+    def test_anon_with_number(self):
+        self.assertEqual(ANON(42), '?')
+
+    def test_anon_with_string(self):
+        self.assertEqual(ANON("FOO"), '?')
+
+    def test_anon_with_nested_tuples(self):
+        self.assertEqual(ANON(((("L", "E"), "F"), "T")), ((('?','?'), '?'), '?'))
+        self.assertEqual(ANON((5, "FOO", 3.1, -0.2)), ('?', '?', '?', '?'))
+        self.assertEqual(ANON((1, ("FOO", 3.1), -0.2)), ('?', ('?', '?'), '?'))
+        self.assertEqual(ANON((((1, 2), ("FOO", 3.1)), ("BAR", -0.2))), ((('?', '?'), ('?', '?')), ('?', '?')))
+        self.assertEqual(ANON(("R", ("I", ("G", ("H", "T"))))), ('?', ('?', ('?', ('?', '?')))))
+
 
 if __name__ == '__main__':
     unittest.main()

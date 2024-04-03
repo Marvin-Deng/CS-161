@@ -3,12 +3,12 @@
 
 def PAD(N):
     """
-    Calculates the Nth number in the Padvan Sequence by memoizing the 3 previous values
+    1. Calculates the Nth number in the Padvan Sequence by memoizing the 3 previous values
 
     Args:
     - N (int): Non-negative position in the Padovan sequence to calculate
 
-    Returns
+    Returns:
     - int: The Nth Padovan number
     """
 
@@ -30,15 +30,14 @@ def PAD(N):
 
 def SUMS(N):
     """
-    Recursively calculates the number of additions required by the PAD function to compute the Nth Padovan number 
+    2. Recursively calculates the number of additions required by the PAD function to compute the Nth Padovan number 
     using the number of additions needed to find the 2nd and 3rd previous numbers
-
 
     Args:
     - N (int): Non-negative position in the Padovan sequence to calculate
 
-    Returns
-    - int: The number of additions
+    Returns:
+    - int: The number of additions needed to find the Nth Padovan number
     """
 
     if N < 3:
@@ -47,11 +46,19 @@ def SUMS(N):
     return 1 + SUMS(N - 2) + SUMS(N - 3)
 
 
+def ANON(TREE):
+    """
+    3. Recursively changes the values of the tuples to "?"
 
+    Args:
+    - TREE (tuple): A tuple representing the tree
+
+    Returns:
+    - tuple: The tuple representin TREE with its values anonymized to "?"
+
+    """
+    if not isinstance(TREE, tuple):
+        return "?"
+
+    return tuple(ANON(subtree) for subtree in TREE)
     
-
-    
-
-    
-
-
