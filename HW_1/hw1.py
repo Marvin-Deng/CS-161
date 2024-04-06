@@ -3,7 +3,7 @@
 
 def PAD(N):
     """
-    1. Calculates the Nth number in the Padvan Sequence by memoizing the 3 previous values
+    1. Calculates the Nth number in the Padvan Sequence by memoizing the 3 previous values in order to calculate the next sum
 
     Args:
     - N (int): Non-negative position in the Padovan sequence to calculate
