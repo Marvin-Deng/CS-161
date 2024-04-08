@@ -1,9 +1,24 @@
-# HW 1, Marvin Deng
+"""
+HW 1, Marvin Deng
+
+My solutions use memoization or recursion to determine the answer to next steps based on the results of previous or next steps.
+
+1. Calculates the Nth number in the Padvan Sequence by memoizing the 3 previous values in order to calculate the next sum
+
+2. Recursively calculates the number of additions required by the PAD function to compute the Nth Padovan number 
+    using the number of additions needed to find the 2nd and 3rd previous numbers.
+
+3. Recursively changes the values of the tuples to "?" only when the value of the input isn't a tuple (implying its the value of a leaf)
+
+4. Calculates the height of TREE, or the longest path from the root node to the farthest leaf node.
+
+5. Returns a postorder traversal of the numbers in TREE by recursively searching the left and right subtrees before processing the current node.
+"""
 
 
 def PAD(N):
     """
-    1. Calculates the Nth number in the Padvan Sequence by memoizing the 3 previous values in order to calculate the next sum
+    1.
 
     Args:
     - N (int): Non-negative position in the Padovan sequence to calculate
@@ -30,8 +45,7 @@ def PAD(N):
 
 def SUMS(N):
     """
-    2. Recursively calculates the number of additions required by the PAD function to compute the Nth Padovan number 
-    using the number of additions needed to find the 2nd and 3rd previous numbers
+    2.
 
     Args:
     - N (int): Non-negative position in the Padovan sequence to calculate
@@ -48,7 +62,7 @@ def SUMS(N):
 
 def ANON(TREE):
     """
-    3. Recursively changes the values of the tuples to "?"
+    3.
 
     Args:
     - TREE (tuple): A tuple representing a tree
@@ -65,7 +79,7 @@ def ANON(TREE):
 
 def TREE_HEIGHT(TREE):
     """
-    4. Calculates the height of TREE, or the longest path from the root node to the farthest leaf node
+    4.
 
     Args:
     - TREE (tuple): A tuple representing a tree
@@ -82,7 +96,7 @@ def TREE_HEIGHT(TREE):
 
 def TREE_ORDER(TREE):
     """
-    5. Returns a postorder traversal of the numbers in TREE
+    5.
 
     Args:
     - TREE (tuple): A tuple representing an ordered tree in the form (L, m, R) where 
