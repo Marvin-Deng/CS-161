@@ -11,6 +11,8 @@ HW 2, Marvin Deng
    When we reach a leaf node (not a tuple), we can add it to our result.
    When we reach another tuple, we append its children to the back of the list.
 
+3. DFID traversal of the tuple tree can be done using multiple iterations of a recursive DFS, which 
+   only traverses to a certain depth each iteration
 """
 
 def BFS(TREE):
@@ -44,7 +46,7 @@ def BFS(TREE):
 def DFS(TREE):
     """
     2.
-    
+
     Args:
         - TREE (tuple): A tuple representing a tree
 
@@ -65,3 +67,36 @@ def DFS(TREE):
             dfs_order.append(curr)
 
     return tuple(dfs_order)
+
+def DFID(TREE, D):
+    """
+    2.
+
+    Args:
+        - TREE (tuple): A tuple representing a tree
+        - D (int): The depth of the tree
+
+    Returns:
+        - tuple: The tuple representing a right to left DFID traversal of TREE
+    """
+
+    if not isinstance(TREE, tuple):
+        return (TREE,)
+     
+    def dfs(node, depth, result):
+
+        if depth < 0:
+            return
+        
+        if not isinstance(node, tuple):
+            result.append(node)
+            return
+        
+        for child in node[::-1]:
+            dfs(child, depth - 1, result)
+
+    result = []
+    for depth in range(D + 1):
+        dfs(TREE, depth, result)
+
+    return tuple(result)
