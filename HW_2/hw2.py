@@ -201,7 +201,13 @@ def NEXT_STATE(S, A):
 # returns a list of each state that can be reached by applying legal operators
 # to the current state.
 def SUCC_FN(S):
-    raise NotImplementedError
+    succ_states = []
+    moves = ["h", "b", "d", "p"]
+    for move in moves:
+        next_state = NEXT_STATE(S, move)
+        if next_state != []:
+            succ_states.append(next_state[0])
+    return succ_states
 
 
 # ON_PATH checks whether the current state is on the stack of states visited by
