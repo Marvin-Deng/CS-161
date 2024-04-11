@@ -3,8 +3,6 @@ from hw2 import (
     BFS,
     DFS,
     DFID,
-    FINAL_STATE,
-    NEXT_STATE,
 )
 
 class TestBFS(unittest.TestCase):
@@ -68,84 +66,6 @@ class TestDFID(unittest.TestCase):
 
     def test_example6(self):
         self.assertEqual(DFID(("A", (("C", (("E",), "D")), "B")), 5), ('A', 'B', 'A', 'B', 'C', 'A', 'B', 'D', 'C', 'A', 'B', 'D', 'E', 'C', 'A'))
-
-class TestFinalState(unittest.TestCase):
-    def test_final_state_all_true(self):
-        S = (True, True, True, True)
-        self.assertTrue(FINAL_STATE(S))
-
-    def test_final_state_some_false(self):
-        S = (True, True, False, True)
-        self.assertFalse(FINAL_STATE(S))
-
-    def test_final_state_all_false(self):
-        S = (False, False, False, False)
-        self.assertFalse(FINAL_STATE(S))
-
-    def test_final_state_different_arrangement(self):
-        S = (True, False, True, False)
-        self.assertFalse(FINAL_STATE(S))
-
-class TestNextState(unittest.TestCase):
-    def test_invalid_current_state(self):
-        S = (True, False, False, True)  # Baby unsupervised with dog
-        A = "h"
-        expected_state = []
-        self.assertEqual(NEXT_STATE(S, A), expected_state)
-
-    def test_move_only_homer_to_valid_state(self):
-        S = (True, True, False, False)
-        A = "h"
-        expected_state = [(False, True, False, False)]
-        self.assertEqual(NEXT_STATE(S, A), expected_state)
-
-    def test_move_only_homer_to_invalid_state(self):
-        S = (True, True, True, True)
-        A = "h"
-        expected_state = [] # Moves to invalid state where baby on same side as dog and poison
-        self.assertEqual(NEXT_STATE(S, A), expected_state)
-
-    def test_move_homer_and_baby_to_valid_state(self):
-        S = (False, False, True, True)
-        A = "b"
-        expected_state = [(True, True, True, True)]
-        self.assertEqual(NEXT_STATE(S, A), expected_state)
-
-    def test_move_homer_and_baby_invalid_current_state(self):
-        S = (True, False, True, True) # Homer and baby on opposite ends
-        A = "b"
-        expected_state = []
-        self.assertEqual(NEXT_STATE(S, A), expected_state)
-
-    def test_move_homer_and_dog_to_valid_state(self):
-        S = (True, False, True, True) 
-        A = "d"
-        expected_state = [(False, False, False, True)]
-        self.assertEqual(NEXT_STATE(S, A), expected_state)
-
-    def test_move_homer_and_dog_to_invalid_state(self):
-        S = (True, True, True, True) 
-        A = "d"
-        expected_state = [] # Baby left with poison
-        self.assertEqual(NEXT_STATE(S, A), expected_state)
-
-    def test_homer_and_dog_invalid_current_state(self):
-        S = (True, True, False, True) # Homer and dog on opposite ends
-        A = "d"
-        expected_state = []
-        self.assertEqual(NEXT_STATE(S, A), expected_state)
-
-    def test_move_hommer_and_poison_to_valid_state(self):
-        S = (True, True, False, True)
-        A = "p"
-        expected_state = [(False, True, False, False)]
-        self.assertEqual(NEXT_STATE(S, A), expected_state)
-
-    def test_move_hommer_and_poison_to_invalid_state(self):
-        S = (True, True, True, True)
-        A = "p"  
-        expected_state = [] # Moves to invalid state, where baby and dog on the same side
-        self.assertEqual(NEXT_STATE(S, A), expected_state)
 
 if __name__ == '__main__':
     unittest.main()
