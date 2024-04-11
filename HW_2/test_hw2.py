@@ -3,6 +3,7 @@ from hw2 import (
     BFS,
     DFS,
     DFID,
+    FINAL_STATE
 )
 
 class TestBFS(unittest.TestCase):
@@ -67,6 +68,22 @@ class TestDFID(unittest.TestCase):
     def test_example6(self):
         self.assertEqual(DFID(("A", (("C", (("E",), "D")), "B")), 5), ('A', 'B', 'A', 'B', 'C', 'A', 'B', 'D', 'C', 'A', 'B', 'D', 'E', 'C', 'A'))
 
+class TestFinalState(unittest.TestCase):
+    def test_final_state_all_true(self):
+        S = (True, True, True, True)
+        self.assertTrue(FINAL_STATE(S))
+
+    def test_final_state_some_false(self):
+        S = (True, True, False, True)
+        self.assertFalse(FINAL_STATE(S))
+
+    def test_final_state_all_false(self):
+        S = (False, False, False, False)
+        self.assertFalse(FINAL_STATE(S))
+
+    def test_final_state_different_arrangement(self):
+        S = (True, False, True, False)
+        self.assertFalse(FINAL_STATE(S))
 
 if __name__ == '__main__':
     unittest.main()
