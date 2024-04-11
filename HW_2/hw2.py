@@ -209,13 +209,21 @@ def SUCC_FN(S):
             succ_states.append(next_state[0])
     return succ_states
 
+"""
+ON_PATH checks whether the current state is on the stack of states visited by
+this depth-first search. 
 
-# ON_PATH checks whether the current state is on the stack of states visited by
-# this depth-first search. It takes two arguments: the current state (S) and the
-# stack of states visited by DFS (STATES). It returns True if S is a member of
-# STATES and False otherwise.
+Args:
+- the current state (S) 
+- stack of states visited by DFS (STATES). 
+
+Returns
+- True if S is a member of STATES and False otherwise.
+"""
+
+
 def ON_PATH(S, STATES):
-    raise NotImplementedError
+    return S in STATES
 
 
 # MULT_DFS is a helper function for DFS_SOL. It takes two arguments: a list of

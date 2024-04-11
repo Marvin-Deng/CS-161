@@ -3,6 +3,7 @@ from hw2 import (
     FINAL_STATE,
     NEXT_STATE,
     SUCC_FN,
+    ON_PATH,
 )
 
 class TestFinalState(unittest.TestCase):
@@ -120,6 +121,16 @@ class TestSUCC_FN(unittest.TestCase):
         expected_successor_states = []
         self.assertEqual(SUCC_FN(S), expected_successor_states)
 
+class TestSUCC_FN(unittest.TestCase):
+    def test_current_state_on_stack(self): 
+        S = (True, False, False, False)
+        states = [(True, False, False, False), (False, False, False, False), (True, True, True, False)]
+        self.assertTrue(ON_PATH(S, states))
+
+    def test_current_state_not_on_stack(self): 
+        S = (True, False, False, False)
+        states = [(True, True, False, False), (False, False, False, False), (True, True, True, False)]
+        self.assertFalse(ON_PATH(S, states))
 
 if __name__ == '__main__':
     unittest.main()
