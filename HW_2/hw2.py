@@ -221,22 +221,40 @@ Returns
 - True if S is a member of STATES and False otherwise.
 """
 
-
 def ON_PATH(S, STATES):
     return S in STATES
 
+"""
+MULT_DFS is a helper function for DFS_SOL. 
 
-# MULT_DFS is a helper function for DFS_SOL. It takes two arguments: a list of
-# states from the initial state to the current state (PATH), and the legal
-# successor states to the last, current state in the PATH (STATES). PATH is a
-# first-in first-out list of states# that is, the first element is the initial
-# state for the current search and the last element is the most recent state
-# explored. MULT_DFS does a depth-first search on each element of STATES in
-# turn. If any of those searches reaches the final state, MULT_DFS returns the
-# complete path from the initial state to the goal state. Otherwise, it returns
-# [].
+Args
+- STATES is a list of states from the initial state to the current state (PATH), and the legal
+successor states to the last, current state in the PATH (STATES). 
+- PATH is a first-in first-out list of states# that is, the first element is the initial
+state for the current search and the last element is the most recent state
+explored. 
+
+MULT_DFS does a depth-first search on each element of STATES in
+turn. If any of those searches reaches the final state, MULT_DFS returns the
+complete path from the initial state to the goal state. Otherwise, it returns
+[].
+"""
+
 def MULT_DFS(STATES, PATH):
-    raise NotImplementedError
+    for state in STATES:
+        stack = [(state, PATH + [state])]
+
+        while stack:
+            current_state, current_path = stack.pop()
+
+            if FINAL_STATE(current_state):
+                return current_path
+
+            for successor in SUCC_FN(current_state):
+                if not ON_PATH(successor, current_path):
+                    stack.append((successor, current_path + [successor]))
+
+    return []
 
 
 # DFS_SOL does a depth first search from a given state to the goal state. It
@@ -248,4 +266,4 @@ def MULT_DFS(STATES, PATH):
 # ensuring that the depth-first search does not revisit a node already on the
 # search path (i.e., S is not on PATH).
 def DFS_SOL(S, PATH):
-    raise NotImplementedError
+    pass
