@@ -138,8 +138,8 @@ def FINAL_STATE(S):
     return S == (True, True, True, True)
 
 """
-NEXT_STATE returns the state that results from applying an operator to the
-current state. 
+NEXT_STATE 
+- Returns the state that results from applying an operator to the current state. 
 
 Args:
 - the current state (S)
@@ -149,19 +149,52 @@ with dog, and "p" for homer with poison).
 Returns:
 - A list containing the state that results from that move.
 - If applying this operator results in an invalid state (because the dog and baby,
-or poisoin and baby are left unsupervised on one side of the river), or when the
-action is impossible (homer is not on the same side as the entity) it returns [].
+or poisoin and baby are left unsupervised on one side of the river)
+OR
+- when the action is impossible (homer is not on the same side as the entity) it returns [].
 
 NOTE that NEXT_STATE returns a list containing the successor state (which is
 itself a tuple)# the return should look something like [(False, False, True, True)].
+(homer, baby, dog, poison)
 """
 
 def NEXT_STATE(S, A):
+    homer, baby, dog, poison = S
+
+    # Check for invalid current state: Baby unsupervised with dog or poison
+    if homer != baby and (baby == dog or baby == poison):
+        return []
+
+    new_state = None
+
     if A == "h":
-        new_tuple = (False,) + tuple(S[1:])
+        new_state = [(not homer, baby, dog, poison)]
+    elif A == "b":
+        if homer == baby:
+            new_state = [(not homer, not baby, dog, poison)]
+        else:
+            return []
+    elif A == "d":
+        if homer == dog:
+            new_state = [(not homer, baby, not dog, poison)]
+        else:
+            return []
+    elif A == "p":
+        if homer == poison:
+            new_state = [(not homer, baby, dog, not poison)]
+        else:
+            return []
 
+    if new_state is None:
+        return []
 
+    new_h, new_b, new_d, new_p = new_state[0]
 
+    # Check for invalid new state: Baby unsupervised with dog or poison
+    if new_h != new_b and (new_b == new_d or new_b == new_p):
+        return []
+
+    return new_state
 
 # SUCC_FN returns all of the possible legal successor states to the current
 # state. It takes a single argument (S), which encodes the current state, and
