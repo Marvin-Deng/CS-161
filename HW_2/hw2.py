@@ -13,6 +13,11 @@ HW 2, Marvin Deng
 
 3. DFID traversal of the tuple tree can be done using multiple iterations of a recursive DFS, which 
    only traverses to a certain depth each iteration
+
+4.
+FINAL_STATE checks if the algorihtm has reached its goal state
+NEXT_STATE checks to see if the current state is valid, then inverts the values of homer, baby, dog, and poison.
+
 """
 
 def BFS(TREE):
@@ -256,14 +261,23 @@ def MULT_DFS(STATES, PATH):
 
     return []
 
+"""
+DFS_SOL performs a depth-first search starting at the given state. 
+DFS_SOL does a depth first search from a given state to the goal state. 
 
-# DFS_SOL does a depth first search from a given state to the goal state. It
-# takes two arguments: a state (S) and the path from the initial state to S
-# (PATH). If S is the initial state in our search, PATH is set to []. DFS_SOL
-# performs a depth-first search starting at the given state. It returns the path
-# from the initial state to the goal state, if any, or [] otherwise. DFS_SOL is
-# responsible for checking if S is already the goal state, as well as for
-# ensuring that the depth-first search does not revisit a node already on the
-# search path (i.e., S is not on PATH).
+Args:
+- It takes two arguments: a state (S) and the path from the initial state to S
+(PATH). 
+
+Returns:
+- The path from the initial state to the goal state, if any OR [] otherwise. 
+
+DFS_SOL is responsible for checking if S is already the goal state, as well as for
+ensuring that the depth-first search does not revisit a node already on the
+search path (i.e., S is not on PATH).
+"""
+
 def DFS_SOL(S, PATH):
-    pass
+    if S == (True, True, True, True):
+        return [S]
+    return MULT_DFS([S], PATH)
