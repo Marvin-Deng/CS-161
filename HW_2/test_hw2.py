@@ -7,6 +7,7 @@ from hw2 import (
     NEXT_STATE,
     SUCC_FN,
     ON_PATH,
+    DFS_SOL,
 )
 
 class TestBFS(unittest.TestCase):
@@ -196,6 +197,17 @@ class TestON_PATH(unittest.TestCase):
         S = (True, False, False, False)
         states = [(True, True, False, False), (False, False, False, False), (True, True, True, False)]
         self.assertFalse(ON_PATH(S, states))
+
+class TestDFS_SOL(unittest.TestCase):
+    def test_current_state_is_goal_state(self): 
+        S = (True, True, True, True)
+        PATH = []
+        self.assertEqual(DFS_SOL(S, PATH), [S])
+
+    def test_current_state_is_already_in_path(self): 
+        S = (True, True, False, True)
+        PATH = [(True, True, False, True), (False, True, False, True)]
+        self.assertEqual(DFS_SOL(S, PATH), [])
 
 if __name__ == '__main__':
     unittest.main()
