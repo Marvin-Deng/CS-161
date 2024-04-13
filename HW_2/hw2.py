@@ -14,10 +14,20 @@ HW 2, Marvin Deng
 3. DFID traversal of the tuple tree can be done using multiple iterations of a recursive DFS, which 
    only traverses to a certain depth each iteration
 
-4.
-FINAL_STATE checks if the algorihtm has reached its goal state
-NEXT_STATE checks to see if the current state is valid, then inverts the values of homer, baby, dog, and poison.
+4. FINAL_STATE checks if the algorithm's current state has reached the goal state
 
+   NEXT_STATE checks to see if the current state and move are valid, then inverts the values of 
+   homer, baby, dog, and poison depending on the move.
+
+   SUCC_FN loops through each possible next, and generates a list of valid next states using NEXT_STATE
+
+   ON_PATH returns if the current state is already in the current path
+
+   MULT_DFS uses SUCC_FN to get a list of the possible next states, FINAL_STATE to check if its reached the 
+   goal state, and ON_PATH to avoid cycles by not visiting the previous state on the path 
+
+   DFS_SOL checks if the inital state is the goal state and if the inital state is already in the path.
+   It then calls MULT_DFS to perform the DFS starting from the current state and path
 """
 
 def BFS(TREE):
@@ -201,10 +211,17 @@ def NEXT_STATE(S, A):
 
     return new_state
 
-# SUCC_FN returns all of the possible legal successor states to the current
-# state. It takes a single argument (S), which encodes the current state, and
-# returns a list of each state that can be reached by applying legal operators
-# to the current state.
+"""
+SUCC_FN returns all of the possible legal successor states to the current
+state. 
+
+Args
+- S: encodes the current state
+
+Returns:
+- A list of each state that can be reached by applying legal operators to the current state.
+"""
+
 def SUCC_FN(S):
     succ_states = []
     moves = ["h", "b", "d", "p"]
@@ -280,4 +297,6 @@ search path (i.e., S is not on PATH).
 def DFS_SOL(S, PATH):
     if S == (True, True, True, True):
         return [S]
+    if ON_PATH(S, PATH):
+        return []
     return MULT_DFS([S], PATH)
