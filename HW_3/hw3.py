@@ -122,18 +122,35 @@ def cleanUpList(s_list):
             clean.append(state)
     return clean
 
+"""
+EXERCISE: Modify this function to return Ture
+if and only if s (numpy array) is a goal state of a Sokoban game.
+(no box is on a non-goal square)
+Remember, the number of goal can be larger than the number of box.
+Currently, it always returns False. If A* is called with
+this function as the goal testing function, A* will never
+terminate until the whole search space is exhausted.
+"""
+def box_in_row(row):
+    if not row:
+        return False
+    for element in row:
+        if element == 'box':
+            return True
+    return False
 
-# EXERCISE: Modify this function to return Ture
-# if and only if s (numpy array) is a goal state of a Sokoban game.
-# (no box is on a non-goal square)
-# Remember, the number of goal can be larger than the number of box.
-# Currently, it always returns False. If A* is called with
-# this function as the goal testing function, A* will never
-# terminate until the whole search space is exhausted.
 def goal_test(s):
-    raise NotImplementedError()
+    """
+    Checks if there are still boxes remaining in s
+    """
+    if not s:
+        return True
+    for row in s:
+        if box_in_row(row):
+            return False
+    return True
 
-
+    
 # EXERCISE: Modify this function to return the list of
 # successor states of s (numpy array).
 #
