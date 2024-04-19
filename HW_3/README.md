@@ -13,8 +13,10 @@ Vince Lin's [tests](https://gist.github.com/vinlin24/5379704763a06952d91c0af0f52
 # Basic Tests
 python3 test_hw3.py
 
-# Optimality Tests
+# Optimality Test h0
 python3 test_hw3.py -s
+
+# Optimality Test h1
 python3 test_hw3.py -s h1
 
 # Extreme Tests

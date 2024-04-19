@@ -231,12 +231,34 @@ def h1(s):
                 boxes += 1
     return boxes
 
-# EXERCISE: 
-# This function will be tested in various hard examples.
-# Objective: make A* solve problems as fast as possible.
-# TODO: change the function name to hUID, where UID is your student ID
+"""
+EXERCISE: 
+This function will be tested in various hard examples.
+Objective: make A* solve problems as fast as possible.
+
+Calculates the Manhattan distance between a goal and box
+"""
+def find_col(r, c, v):
+    if len(r) == 0:
+        return None
+    if r[0] == v:
+        return [c]
+    return find_col(r[1:], c + 1, v)
+
+def find_val(s, r, v):
+    if len(s) == 0:
+        return [0, 0]
+    c = find_col(s[0], 0, v)
+    if not c:
+        return find_val(s[1:], r + 1, v)
+    return c + [r]
+
 def h505918229(s):
-    return 1
+    box = find_val(s, 0, 2)
+    goal = find_val(s, 0, 4)
+    bx, by = box
+    gx, gy = goal
+    return abs(bx - gx) + abs(by - gy)
 
 
 # Some predefined problems with initial state s (array). Sokoban function will automatically transform it to numpy
