@@ -131,19 +131,14 @@ Currently, it always returns False. If A* is called with
 this function as the goal testing function, A* will never
 terminate until the whole search space is exhausted.
 """
-def box_in_row(row):
-    for element in row:
-        if element == 'box':
-            return True
-    return False
-
 def goal_test(s):
     """
     Checks if there are still boxes remaining in s
     """
     for row in s:
-        if box_in_row(row):
-            return False
+        for val in row:
+            if isBox(val):
+                return False
     return True
 
 """
@@ -175,7 +170,7 @@ def is_valid_move(state, curr_val, new_r, new_c):
             return False
     return True
 
-def state_after_move(state, dir, row, col, new_r, new_c): # dir = [x, y]
+def get_state_after_move(state, dir, row, col, new_r, new_c): # dir = [x, y]
     curr_val = state[row][col]
     new_val = state[new_r][new_c]
 
@@ -210,14 +205,11 @@ def next_states(s):
     state = np.copy(s)
     s_list = []
     curr_val = state[row][col]
-    
     directions = ([1, 0], [0, 1], [-1, 0], [0, -1])
-
     for dir in directions:
         new_r, new_c = row + dir[0], col + dir[1]
         if (is_valid_move(state, curr_val, new_r, new_c)):
-            s_list.append(state_after_move(np.copy(state), dir, row, col, new_r, new_c))
-
+            s_list.append(get_state_after_move(np.copy(state), dir, row, col, new_r, new_c))
     return cleanUpList(s_list)
 
 """
@@ -243,8 +235,8 @@ def h1(s):
 # This function will be tested in various hard examples.
 # Objective: make A* solve problems as fast as possible.
 # TODO: change the function name to hUID, where UID is your student ID
-def h123456789(s):
-    raise NotImplementedError()
+def h505918229(s):
+    return 1
 
 
 # Some predefined problems with initial state s (array). Sokoban function will automatically transform it to numpy
