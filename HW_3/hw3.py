@@ -150,30 +150,77 @@ def goal_test(s):
             return False
     return True
 
-    
-# EXERCISE: Modify this function to return the list of
-# successor states of s (numpy array).
-#
-# This is the top-level next-states (successor) function.
-# Some skeleton code is provided below.
-# You may delete them totally, depending on your approach.
-# 
-# If you want to use it, you will need to set 'result' to be 
-# the set of states after moving the keeper in each of the 4 directions.
-#
-# You can define the function try-move and decide how to represent UP,DOWN,LEFT,RIGHT.
-# Any None result in the list can be removed by cleanUpList.
-#
-# When generated the successors states, you may need to copy the current state s (numpy array).
-# A shallow copy (e.g, direcly set s1 = s) constructs a new compound object and then inserts references 
-# into it to the objects found in the original. In this case, any change in the numpy array s1 will also affect
-# the original array s. Thus, you may need a deep copy (e.g, s1 = np.copy(s)) to construct an indepedent array.
+"""
+EXERCISE: Modify this function to return the list of
+successor states of s (numpy array).
+
+This is the top-level next-states (successor) function.
+Some skeleton code is provided below.
+You may delete them totally, depending on your approach.
+
+If you want to use it, you will need to set 'result' to be 
+the set of states after moving the keeper in each of the 4 directions.
+
+You can define the function try-move and decide how to represent UP,DOWN,LEFT,RIGHT.
+Any None result in the list can be removed by cleanUpList.
+
+When generated the successors states, you may need to copy the current state s (numpy array).
+A shallow copy (e.g, direcly set s1 = s) constructs a new compound object and then inserts references 
+into it to the objects found in the original. In this case, any change in the numpy array s1 will also affect
+the original array s. Thus, you may need a deep copy (e.g, s1 = np.copy(s)) to construct an indepedent array.
+"""
+
+def is_valid_move(state, curr_val, new_r, new_c):
+    if new_r < 0 or new_c < 0 or new_r >= len(state) or new_c >= len(state[0]) or isWall(state[new_r][new_c]):
+        return False
+    if isBox(curr_val) or isBoxstar(curr_val):
+        new_val = state[new_r][new_c]
+        if isBoxstar(new_val) or isBox(new_val):
+            return False
+    return True
+
+def state_after_move(state, dir, row, col, new_r, new_c): # dir = [x, y]
+    curr_val = state[row][col]
+    new_val = state[new_r][new_c]
+
+    # Keeper leaving old position
+    if isKeeper(curr_val):
+        state[row][col] = 0     # Move keeper off of blank
+    elif isKeeperstar(curr_val):
+        state[row][col] = 4     # Move keeper off of goal
+
+    # Keeper moving to new position
+    if isBlank(new_val):
+        state[new_r][new_c] = 3 # Move keeper onto blank
+    elif isStar(new_val):
+        state[new_r][new_c] = 6 # Move keeper onto goal
+    elif isBox(new_val) or isBoxstar(new_val):
+        new_box_r, new_box_c = new_r + dir[0], new_c + dir[1] # Move the box in the direction of the keeper's move
+        if not is_valid_move(state, new_val, new_box_r, new_box_c): # Check if the box can be moved
+            return None
+        new_box_pos_val = state[new_box_r][new_box_c]
+        if isBlank(new_box_pos_val):
+            state[new_box_r][new_box_c] = 2 # Move box onto blank
+        elif isStar(new_box_pos_val):
+            state[new_box_r][new_box_c] = 5 # Move box onto goal
+        if isBox(new_val):
+            state[new_r][new_c] = 3 # Move keeper onto box's old blank position 
+        elif isBoxstar(new_val):
+            state[new_r][new_c] = 6 # Move keeper onto goal
+    return np.copy(state)
+
 def next_states(s):
     row, col = getKeeperPosition(s)
+    state = np.copy(s)
     s_list = []
-    s1 = np.copy(s)
+    curr_val = state[row][col]
+    
+    directions = ([1, 0], [0, 1], [-1, 0], [0, -1])
 
-    # NOT IMPLEMENTED YET! YOU NEED TO FINISH THIS FUNCTION.
+    for dir in directions:
+        new_r, new_c = row + dir[0], col + dir[1]
+        if (is_valid_move(state, curr_val, new_r, new_c)):
+            s_list.append(state_after_move(np.copy(state), dir, row, col, new_r, new_c))
 
     return cleanUpList(s_list)
 
