@@ -14,4 +14,7 @@ python3 test_hw3.py -s h1
 
 # Extreme Tests
 python3 test_hw3.py -xs hUID
+
+# Test H1
+python -m unittest test_hw3.TestH1
 ```

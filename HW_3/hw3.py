@@ -132,8 +132,6 @@ this function as the goal testing function, A* will never
 terminate until the whole search space is exhausted.
 """
 def box_in_row(row):
-    if not row:
-        return False
     for element in row:
         if element == 'box':
             return True
@@ -143,8 +141,6 @@ def goal_test(s):
     """
     Checks if there are still boxes remaining in s
     """
-    if not s:
-        return True
     for row in s:
         if box_in_row(row):
             return False
@@ -231,12 +227,17 @@ admissible heuristic.
 def h0(s):
     return 0
 
-
-# EXERCISE: Modify this function to compute the
-# number of misplaced boxes in state s (numpy array).
+"""
+EXERCISE: Modify this function to compute the
+number of misplaced boxes in state s (numpy array).
+"""
 def h1(s):
-    raise NotImplementedError()
-
+    boxes = 0
+    for row in s:
+        for val in row:
+            if isBox(val):
+                boxes += 1
+    return boxes
 
 # EXERCISE: 
 # This function will be tested in various hard examples.
