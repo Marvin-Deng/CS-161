@@ -224,11 +224,12 @@ def next_states(s):
 
     return cleanUpList(s_list)
 
-
-# EXERCISE: Modify this function to compute the trivial
-# admissible heuristic.
+"""
+EXERCISE: Modify this function to compute the trivial
+admissible heuristic.
+"""
 def h0(s):
-    raise NotImplementedError()
+    return 0
 
 
 # EXERCISE: Modify this function to compute the
