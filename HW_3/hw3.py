@@ -237,30 +237,30 @@ This function will be tested in various hard examples.
 Objective: make A* solve problems as fast as possible.
 """
 
-def manhattan_heuristic(s):
-    def find_col(r, c, v):
-        if len(r) == 0:
-            return None
-        if r[0] == v:
-            return [c]
-        return find_col(r[1:], c + 1, v)
+def find_positions(grid, obj):
+    positions = []
+    for row_idx, row in enumerate(grid):
+        for col_idx, value in enumerate(row):
+            if value == obj:
+                positions.append([row_idx, col_idx])
+    return positions
 
-    def find_val(s, r, v):
-        if len(s) == 0:
-            return [0, 0]
-        c = find_col(s[0], 0, v)
-        if not c:
-            return find_val(s[1:], r + 1, v)
-        return c + [r]
-    
-    box = find_val(s, 0, 2)
-    goal = find_val(s, 0, 4)
-    bx, by = box
-    gx, gy = goal
-    return abs(bx - gx) + abs(by - gy)
+def min_distance_one_list(pos1, pos_list):
+    return min(abs(pos1[0] - pos[0]) + abs(pos1[1] - pos[1]) for pos in pos_list)
+
+def min_distance_list_list(pos_list1, pos_list2):
+    return [min_distance_one_list(pos, pos_list2) for pos in pos_list1]
+
+def min_dist_heuristic(s):
+    box_pos = find_positions(s, box)
+    star_pos = find_positions(s, star)
+    keeperstar_pos = find_positions(s, keeperstar)
+    star_all_pos = star_pos + keeperstar_pos
+    min_box_star = min_distance_list_list(box_pos, star_all_pos)
+    return sum(min_box_star) if min_box_star else 0
 
 def h505918229(s):
-    return manhattan_heuristic(s)
+    return min_dist_heuristic(s)
 
 
 # Some predefined problems with initial state s (array). Sokoban function will automatically transform it to numpy

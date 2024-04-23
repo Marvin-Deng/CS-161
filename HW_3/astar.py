@@ -46,7 +46,7 @@ def a_star_search(start_state, goal_test, next_states, heuristic):
     node_generated = 1
     node_expanded = 0
 
-    while pq:
+    while pq.qsize() > 0:
         node = pq.get()
         if goal_test(node.state1):
             return node, node_generated, node_expanded
