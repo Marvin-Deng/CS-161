@@ -30,4 +30,7 @@ python -m unittest test_hw3.TestNextStates
 
 # Test H1
 python -m unittest test_hw3.TestH1
+
+# Timing S17
+python test_hw3.py -m s17 hUID
 ```
