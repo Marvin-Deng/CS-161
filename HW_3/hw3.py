@@ -243,19 +243,17 @@ def find_object_positions(grid):
     for row_idx, row in enumerate(grid):
         for col_idx, value in enumerate(row):
             if value == box:
-                box_pos.append([row_idx, col_idx])
+                box_pos.append((row_idx, col_idx))
             elif value == star or value == keeperstar:
-                all_star_pos.append([row_idx, col_idx])
+                all_star_pos.append((row_idx, col_idx))
     return box_pos, all_star_pos
-
-
-def min_distance_one_list(pos1, pos_list):
-    return min(abs(pos1[0] - pos[0]) + abs(pos1[1] - pos[1]) for pos in pos_list)
 
 def h505918229(s):
     box_pos, all_star_pos = find_object_positions(s)
-    return sum(min_distance_one_list(box, all_star_pos) for box in box_pos) if box_pos else 0
-
+    return sum(
+        min(abs(box[0] - star[0]) + abs(box[1] - star[1]) for star in all_star_pos)
+        for box in box_pos
+    ) if box_pos else 0
 
 # Some predefined problems with initial state s (array). Sokoban function will automatically transform it to numpy
 # array. For other function, the state s is presented as a numpy array. You can just call sokoban(init-state,
