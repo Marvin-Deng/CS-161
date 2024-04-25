@@ -9,17 +9,27 @@ Returns the index of the variable that corresponds to the fact that
 def node2var(n, c, k):
     return (n - 1) * k + c
 
-# Exercise: Fill this function
-# Returns *a clause* for the constraint:
-# "Node n gets at least one color from the set {1, 2, ..., k}"
+""""
+Returns *a clause* for the constraint:
+"Node n gets at least one color from the set {1, 2, ..., k}"
+"""
 def at_least_one_color(n, k):
-    raise NotImplementedError
+    clause = []
+    for c in range(1, k + 1):
+        clause.append(node2var(n, c, k))
+    return clause
 
-# Exercise: Fill this function
-# Returns *a list of clauses* for the constraint:
-# "Node n gets at most one color from the set {1, 2, ..., k}"
+"""
+Returns *a list of clauses* for the constraint:
+"Node n gets at most one color from the set {1, 2, ..., k}"
+"""
 def at_most_one_color(n, k):
-    raise NotImplementedError
+    clauses = []
+    for c1 in range(1, k):
+        for c2 in range(c1 + 1, k + 1):
+            clauses.append([-node2var(n, c1, k), -node2var(n, c2, k)])
+    return clauses
+
 
 # Exercise: Fill this function
 # Returns *a list of clauses* for the constraint:
