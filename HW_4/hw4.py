@@ -2,11 +2,12 @@
 # Homework 4 #
 ##############
 
-# Exercise: Fill this function.
-# Returns the index of the variable that corresponds to the fact that
-# "Node n gets color c" when there are k possible colors
+"""
+Returns the index of the variable that corresponds to the fact that
+"Node n gets color c" when there are k possible colors
+"""
 def node2var(n, c, k):
-    raise NotImplementedError
+    return (n - 1) * k + c
 
 # Exercise: Fill this function
 # Returns *a clause* for the constraint:
