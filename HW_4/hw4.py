@@ -9,6 +9,7 @@ Returns the index of the variable that corresponds to the fact that
 def node2var(n, c, k):
     return (n - 1) * k + c
 
+
 """"
 Returns *a clause* for the constraint:
 "Node n gets at least one color from the set {1, 2, ..., k}"
@@ -18,6 +19,7 @@ def at_least_one_color(n, k):
     for c in range(1, k + 1):
         clause.append(node2var(n, c, k))
     return clause
+
 
 """
 Returns *a list of clauses* for the constraint:
@@ -30,19 +32,30 @@ def at_most_one_color(n, k):
             clauses.append([-node2var(n, c1, k), -node2var(n, c2, k)])
     return clauses
 
-
-# Exercise: Fill this function
-# Returns *a list of clauses* for the constraint:
-# "Node n gets exactly one color from the set {1, 2, ..., k}"
+"""
+Returns *a list of clauses* for the constraint:
+"Node n gets exactly one color from the set {1, 2, ..., k}"
+"""
 def generate_node_clauses(n, k):
-    raise NotImplementedError
+    clauses = []
+    clauses.append(at_least_one_color(n, k))
+    clauses.extend(at_most_one_color(n, k))
+    return clauses
 
-# Exercise: Fill this function
-# Returns *a list of clauses* for the constraint:
-# "Nodes connected by an edge e cannot have the same color"
-# The edge e is represented by a tuple
+"""
+Returns *a list of clauses* for the constraint:
+"Nodes connected by an edge e cannot have the same color"
+The edge e is represented by a tuple
+
+Create a list of clauses that prevents both nodes m and n from being colored with color c simultaneously
+"""
 def generate_edge_clauses(e, k):
-    raise NotImplementedError
+    m, n = e
+    clauses = []
+    for c in range(1, k + 1):
+        clause = [-node2var(m, c, k), -node2var(n, c, k)]
+        clauses.append(clause)
+    return clauses
 
 # The function below converts a graph coloring problem to SAT
 # Return CNF as a list of clauses
@@ -58,13 +71,11 @@ def graph_coloring_to_sat(graph_fl, sat_fl, k):
             clauses += generate_edge_clauses(e, k)
     var_count = node_count * k
     clause_count = len(clauses)
-    with open(sat_fl, 'w') as sat_fp:
+    with open(sat_fl, "w") as sat_fp:
         sat_fp.write("p cnf %d %d\n" % (var_count, clause_count))
         for clause in clauses:
             sat_fp.write(" ".join(map(str, clause)) + " 0\n")
     return clauses, var_count
-
-
 
 
 # Example function call
