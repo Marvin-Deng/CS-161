@@ -1,6 +1,5 @@
 # generated graphs
-graph1_3.cnf
-graph1_4.cnf
+*.cnf
 
 # rsat solver
 rsat_2.02_release/

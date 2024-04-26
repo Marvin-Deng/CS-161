@@ -132,8 +132,15 @@ def graph_coloring_to_sat(graph_fl, sat_fl, k):
 
 # Example function call
 if __name__ == "__main__":
-   k1 = 3
-   graph_coloring_to_sat("graph1.txt", "graph1_3.cnf", k1)
+   
+    # 1 - 3
+    k1 = 3
+    graph_coloring_to_sat("graph1.txt", "graph1_3.cnf", k1)
 
-   k2 = 4
-   graph_coloring_to_sat("graph1.txt", "graph1_4.cnf", k2)
+    k2 = 4
+    graph_coloring_to_sat("graph1.txt", "graph1_4.cnf", k2)
+
+    # 4
+    k = 8
+    graph_coloring_to_sat("graph2.txt", "graph2.cnf", k)
+
